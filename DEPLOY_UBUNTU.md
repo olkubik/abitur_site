@@ -116,33 +116,3 @@ ufw enable
 apt install -y certbot python3-certbot-nginx
 certbot --nginx -d example.ru -d www.example.ru
 ```
-
-## Что отправлять на GitHub
-
-Нужно отправлять:
-
-- `src`
-- `public`
-- `db.json`
-- `index.html`
-- `package.json`
-- `package-lock.json`
-- `vite.config.js`
-- `eslint.config.js`
-- `.env.development`
-- `.gitignore`
-- `DEPLOY_UBUNTU.md`
-- папку `sqlserver`, если она нужна для пояснительной записки
-
-Не нужно отправлять:
-
-- `node_modules`
-- `dist`
-- временные скриншоты из корня проекта
-- системные файлы редактора
-
-`node_modules` восстановится командой `npm ci`, а `dist` создается командой `npm run build`.
-
-## Важное замечание для курсовой
-
-`json-server` подходит для демонстрационного MVP без полноценного backend. Для реального публичного сайта админ-панель и изменение данных нужно защищать авторизацией на backend.
