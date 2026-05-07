@@ -69,30 +69,3 @@ DEPLOY_UBUNTU.md
 ```
 
 Для продакшена React-приложение собирается в `dist`, а API запускается на сервере через `pm2` и проксируется Nginx по пути `/api`.
-
-## Что отправлять на GitHub
-
-Отправляются исходники, данные и конфигурация проекта:
-
-- `src`
-- `public`
-- `db.json`
-- `sqlserver`
-- `index.html`
-- `package.json`
-- `package-lock.json`
-- `vite.config.js`
-- `eslint.config.js`
-- `.env.development`
-- `.gitignore`
-- `README.md`
-- `DEPLOY_UBUNTU.md`
-
-Не отправляются:
-
-- `node_modules`
-- `dist`
-- временные скриншоты
-- локальные файлы редактора
-
-Зависимости восстанавливаются командой `npm install` или `npm ci`, поэтому папку `node_modules` на GitHub загружать не нужно.
