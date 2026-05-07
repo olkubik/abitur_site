@@ -1,0 +1,196 @@
+{
+  "institutes": [
+    {
+      "id": "1",
+      "name": "Институт информационных технологий и технологического образования"
+    },
+    {
+      "id": "2",
+      "name": "Факультет математики"
+    }
+  ],
+  "programs": [
+    {
+      "id": "applied-math",
+      "institute_id": 2,
+      "code": "01.03.02",
+      "name": "Прикладная математика и информатика",
+      "degree_level": "Бакалавриат",
+      "duration_years": 4,
+      "study_form": "Очная",
+      "tuition_fee": 206280,
+      "budget_places": 5,
+      "paid_places": 25,
+      "passing_score": 233
+    },
+    {
+      "id": "big-data",
+      "institute_id": 1,
+      "code": "09.03.01",
+      "name": "Технологии разработки программного обеспечения и обработки больших данных",
+      "degree_level": "Бакалавриат",
+      "duration_years": 4,
+      "study_form": "Очная",
+      "tuition_fee": 220000,
+      "budget_places": 10,
+      "paid_places": 30,
+      "passing_score": 259
+    },
+    {
+      "id": "design-tech",
+      "institute_id": 1,
+      "code": "09.03.02",
+      "name": "Информационные технологии в дизайне",
+      "degree_level": "Бакалавриат",
+      "duration_years": 4,
+      "study_form": "Очная",
+      "tuition_fee": 266200,
+      "budget_places": 5,
+      "paid_places": 30,
+      "passing_score": 254
+    },
+    {
+      "id": "music-sound",
+      "institute_id": 1,
+      "code": "09.03.02",
+      "name": "Информационные технологии в музыке и саунд-дизайне",
+      "degree_level": "Бакалавриат",
+      "duration_years": 4,
+      "study_form": "Очная",
+      "tuition_fee": 220000,
+      "budget_places": 0,
+      "paid_places": 30,
+      "passing_score": 120
+    },
+    {
+      "id": "music-sound-distance",
+      "institute_id": 1,
+      "code": "09.03.02",
+      "name": "Информационные технологии в музыке и саунд-дизайне",
+      "degree_level": "Бакалавриат",
+      "duration_years": 5,
+      "study_form": "Заочная",
+      "tuition_fee": 80000,
+      "budget_places": 0,
+      "paid_places": 30,
+      "passing_score": 120
+    },
+    {
+      "id": "math",
+      "institute_id": 2,
+      "code": "44.03.01",
+      "name": "Математика",
+      "degree_level": "Бакалавриат",
+      "duration_years": 4,
+      "study_form": "Очная",
+      "tuition_fee": 217200,
+      "budget_places": 64,
+      "paid_places": 25,
+      "passing_score": 249
+    },
+    {
+      "id": "ai-education",
+      "institute_id": 1,
+      "code": "44.03.01",
+      "name": "Информатика и информационные технологии в образовании",
+      "degree_level": "Бакалавриат",
+      "duration_years": 4,
+      "study_form": "Очная",
+      "tuition_fee": 190000,
+      "budget_places": 15,
+      "paid_places": 25,
+      "passing_score": 249
+    },
+    {
+      "id": "math-physics",
+      "institute_id": 2,
+      "code": "44.03.05",
+      "name": "Математика, физика",
+      "degree_level": "Бакалавриат",
+      "duration_years": 5,
+      "study_form": "Очная",
+      "tuition_fee": 217200,
+      "budget_places": 25,
+      "paid_places": 25,
+      "passing_score": 249
+    }
+  ],
+  "exams": [
+    {
+      "id": "1",
+      "name": "Русский язык",
+      "level": "ЕГЭ"
+    },
+    {
+      "id": "2",
+      "name": "Математика",
+      "level": "ЕГЭ"
+    },
+    {
+      "id": "3",
+      "name": "Информатика или физика",
+      "level": "ЕГЭ"
+    },
+    {
+      "id": "4",
+      "name": "Физика",
+      "level": "ЕГЭ"
+    },
+    {
+      "id": "5",
+      "name": "Обществознание",
+      "level": "ЕГЭ"
+    }
+  ],
+  "program_exams": [
+    {
+      "id": "1",
+      "program_id": "applied-math",
+      "exam_id": 1,
+      "min_score": 40
+    },
+    {
+      "id": "2",
+      "program_id": "applied-math",
+      "exam_id": 2,
+      "min_score": 39
+    },
+    {
+      "id": "3",
+      "program_id": "applied-math",
+      "exam_id": 3,
+      "min_score": 44
+    },
+    {
+      "id": "4",
+      "program_id": "music-sound",
+      "exam_id": 3,
+      "min_score": 44
+    },
+    {
+      "id": "5",
+      "program_id": "math",
+      "exam_id": 5,
+      "min_score": 45
+    }
+  ],
+  "events": [
+    {
+      "id": "1",
+      "institute_id": 1,
+      "name": "День открытых дверей",
+      "event_date": "2026-06-01",
+      "event_time": "12:00",
+      "description": "Встреча с приемной комиссией и преподавателями института"
+    },
+    {
+      "id": "2",
+      "institute_id": 2,
+      "name": "Консультация для абитуриентов",
+      "event_date": "2026-06-10",
+      "event_time": "15:00",
+      "description": "Разбор программ бакалавриата и правил поступления"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
