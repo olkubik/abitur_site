@@ -1,0 +1,370 @@
+openapi: 3.0.3
+info:
+  title: Herzen Applicants MVP API
+  version: 1.0.0
+  description: >
+    Реальная спецификация API текущего MVP сайта абитуриентов.
+    API работает через json-server и файл db.json.
+
+servers:
+  - url: http://localhost:3001
+    description: Local json-server API
+
+tags:
+  - name: Programs
+    description: Образовательные программы
+  - name: Institutes
+    description: Институты и факультеты
+  - name: Exams
+    description: Экзамены и вступительные испытания
+  - name: Program exams
+    description: Связь программ и экзаменов
+  - name: Events
+    description: Мероприятия для абитуриентов
+
+paths:
+  /programs:
+    get:
+      tags: [Programs]
+      summary: Получить список программ
+      description: >
+        Возвращает реальные данные из массива programs в db.json.
+        В json-server доступны фильтрация по точному совпадению, сортировка
+        и пагинация через query-параметры.
+      parameters:
+        - name: study_form
+          in: query
+          schema:
+            type: string
+            enum: [Очная, Заочная, Очно-заочная]
+          example: Очная
+        - name: institute_id
+          in: query
+          schema:
+            type: integer
+          example: 1
+        - name: _sort
+          in: query
+          schema:
+            type: string
+          example: passing_score
+        - name: _order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+          example: desc
+        - name: _page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+          example: 1
+        - name: _limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+          example: 8
+      responses:
+        '200':
+          description: Список программ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Program'
+    post:
+      tags: [Programs]
+      summary: Создать программу
+      description: Реально работает через json-server и добавляет запись в db.json.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Program'
+            example:
+              id: test-program
+              institute_id: 1
+              code: 00.00.00
+              name: Тестовая программа
+              degree_level: Бакалавриат
+              duration_years: 4
+              study_form: Очная
+              tuition_fee: 100000
+              budget_places: 10
+              paid_places: 20
+              passing_score: 200
+      responses:
+        '201':
+          description: Созданная программа
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+
+  /programs/{id}:
+    get:
+      tags: [Programs]
+      summary: Получить программу по ID
+      parameters:
+        - $ref: '#/components/parameters/ProgramId'
+      responses:
+        '200':
+          description: Программа найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+        '404':
+          description: Программа не найдена
+    put:
+      tags: [Programs]
+      summary: Полностью обновить программу
+      parameters:
+        - $ref: '#/components/parameters/ProgramId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Program'
+      responses:
+        '200':
+          description: Обновленная программа
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Program'
+    delete:
+      tags: [Programs]
+      summary: Удалить программу
+      parameters:
+        - $ref: '#/components/parameters/ProgramId'
+      responses:
+        '200':
+          description: Удаленная программа
+        '404':
+          description: Программа не найдена
+
+  /institutes:
+    get:
+      tags: [Institutes]
+      summary: Получить список институтов
+      responses:
+        '200':
+          description: Список институтов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Institute'
+
+  /institutes/{id}:
+    get:
+      tags: [Institutes]
+      summary: Получить институт по ID
+      parameters:
+        - $ref: '#/components/parameters/NumericId'
+      responses:
+        '200':
+          description: Институт найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institute'
+
+  /exams:
+    get:
+      tags: [Exams]
+      summary: Получить список экзаменов
+      responses:
+        '200':
+          description: Список экзаменов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Exam'
+
+  /program_exams:
+    get:
+      tags: [Program exams]
+      summary: Получить связи программ и экзаменов
+      parameters:
+        - name: program_id
+          in: query
+          schema:
+            type: string
+          example: applied-math
+        - name: exam_id
+          in: query
+          schema:
+            type: integer
+          example: 2
+      responses:
+        '200':
+          description: Список связей программ и экзаменов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProgramExam'
+
+  /events:
+    get:
+      tags: [Events]
+      summary: Получить список мероприятий
+      parameters:
+        - name: institute_id
+          in: query
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Список мероприятий
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+
+components:
+  parameters:
+    ProgramId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      example: big-data
+    NumericId:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+      example: 1
+
+  schemas:
+    Program:
+      type: object
+      required:
+        - id
+        - institute_id
+        - code
+        - name
+        - degree_level
+        - duration_years
+        - study_form
+        - budget_places
+        - paid_places
+        - passing_score
+      properties:
+        id:
+          type: string
+          example: big-data
+        institute_id:
+          type: integer
+          example: 1
+        code:
+          type: string
+          example: 09.03.01
+        name:
+          type: string
+          example: Технологии разработки программного обеспечения и обработки больших данных
+        degree_level:
+          type: string
+          example: Бакалавриат
+        duration_years:
+          type: integer
+          example: 4
+        study_form:
+          type: string
+          enum: [Очная, Заочная, Очно-заочная]
+          example: Очная
+        tuition_fee:
+          type: integer
+          nullable: true
+          example: 220000
+        budget_places:
+          type: integer
+          example: 10
+        paid_places:
+          type: integer
+          example: 30
+        passing_score:
+          type: integer
+          example: 259
+
+    Institute:
+      type: object
+      required: [id, name]
+      properties:
+        id:
+          type: string
+          example: '1'
+        name:
+          type: string
+          example: Институт информационных технологий и технологического образования
+
+    Exam:
+      type: object
+      required: [id, name, level]
+      properties:
+        id:
+          type: string
+          example: '2'
+        name:
+          type: string
+          example: Математика
+        level:
+          type: string
+          example: ЕГЭ
+
+    ProgramExam:
+      type: object
+      required: [id, program_id, exam_id, min_score]
+      properties:
+        id:
+          type: string
+          example: '2'
+        program_id:
+          type: string
+          example: applied-math
+        exam_id:
+          type: integer
+          example: 2
+        min_score:
+          type: integer
+          example: 39
+
+    Event:
+      type: object
+      required: [id, institute_id, name, event_date, event_time]
+      properties:
+        id:
+          type: string
+          example: '1'
+        institute_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: День открытых дверей
+        event_date:
+          type: string
+          example: '2026-06-01'
+        event_time:
+          type: string
+          example: '12:00'
+        description:
+          type: string
+          example: Встреча с приемной комиссией и преподавателями института
